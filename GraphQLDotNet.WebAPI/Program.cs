@@ -1,7 +1,5 @@
 using GraphQL;
 using GraphQL.MicrosoftDI;
-using GraphQL.Server;
-using GraphQL.SystemTextJson;
 using GraphQL.Types;
 using GraphQLDotNet.WebAPI.Notes;
 
@@ -13,10 +11,12 @@ builder.Services.AddSingleton<INotesRepository, NotesRepository>();
 builder.Services.AddSingleton<ISchema, NotesSchema>(services => new NotesSchema(new SelfActivatingServiceProvider(services)));
 // register graphQL
 builder.Services.AddGraphQL(options =>
-                {
-                options.EnableMetrics = true;
-                })
-                .AddSystemTextJson();
+                    options.ConfigureExecution((opt, next) =>
+                    {
+                        opt.EnableMetrics = true;
+                        return next(opt);
+                    }).AddSystemTextJson()
+                );
 // default setup
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen(c =>

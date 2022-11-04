@@ -1,9 +1,14 @@
 # GraphQLDotNetWebAPI
 A WebAPI based on the post https://dev.to/berviantoleo/getting-started-graphql-in-net-6-part-1-4ic2
 
+To build and run the API just run
+```bash
+dotnet run --project .\GraphQLDotNet.WebAPI\GraphQLDotNet.WebAPI.csproj
+```
+
 ## Usage
 
-To use the WebAPI you can use the Altair UI on:
+To debug the WebAPI you can use the Altair UI through the following URL:
 ```
 https://localhost:7107/ui/altair
 ```
@@ -32,6 +37,14 @@ https://localhost:7107/ui/altair
 #       message
 #   }
 # }
+
+#### Query option 2:
+query {
+  notes {
+    id,
+    message
+  }
+}
 ```
 
 Or acess via any RestClient or direcly via cURL

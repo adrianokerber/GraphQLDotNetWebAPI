@@ -10,14 +10,13 @@ public class NotesMutation : ObjectGraphType
     {
         _notesRepository = notesRepository;
 
-        Field<NoteType>(
-            "createNote",
-            arguments: new QueryArguments(
+        Field<NoteType>("createNote")
+            .Arguments(new QueryArguments(
                 new QueryArgument<NonNullGraphType<StringGraphType>> { Name = "message"}
-            ),
-            resolve: context =>
+            ))
+            .Resolve(context =>
             {
-                var message = context.GetArgument<string>("message");
+                var message = context.GetArgument<string>("message") ?? string.Empty;
 
                 var note = new Note
                 {
@@ -27,7 +26,6 @@ public class NotesMutation : ObjectGraphType
                 _notesRepository.CreateNote(note);
 
                 return note;
-            }
-        );
+            });
     }
 }

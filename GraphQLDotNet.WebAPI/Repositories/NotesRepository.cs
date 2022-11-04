@@ -11,7 +11,7 @@ public class NotesRepository : INotesRepository {
         _notes = new List<Note>();
     }
 
-    public async Task<List<Note>> GetNotes() => _notes;
-    public async Task CreateNote(Note note) => _notes.Add(note);
-    public async Task DeleteNote(Note note) => _notes.Remove(note);
+    public async Task<List<Note>> GetNotes() => await Task.Run(() => _notes);
+    public async Task CreateNote(Note note) => await Task.Run(() => _notes.Add(note));
+    public async Task DeleteNote(Note note) => await Task.Run(() => _notes.Remove(note));
 }
